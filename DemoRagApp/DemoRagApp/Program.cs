@@ -33,6 +33,7 @@ namespace DemoRagApp
             Student summer = new Student("Summer", "a", "pwd", "9@9.com", 9);
             Student kirk = new Student("Stephen", "ab", "pwd", "10@10.com", 10);
             Course dotnet = new Course("dotnet", new DateTime());
+            dotnet.cr = CloseCourse;
             dotnet.AddStudent(paul);
             dotnet.AddStudent(mike);
             dotnet.AddStudent(stephen);
@@ -43,25 +44,40 @@ namespace DemoRagApp
             dotnet.AddStudent(erik);
             dotnet.AddStudent(summer);
             dotnet.AddStudent(kirk);
-            Console.WriteLine(dotnet.GetStudentByName("stephen"));
+            dotnet.AddStudent(kirk);
+            dotnet.AddStudent(kirk);
+            // dotnet.RemoveStudentById(paul.ID);
+            // dotnet.cr = CloseCourse;
+            // Console.WriteLine(dotnet.GetStudentByName("Paul"));
+            // Console.WriteLine(dotnet.GetStudentByName("stephen"));
+            // Console.WriteLine(dotnet.GetStudentByFullName("Paul a"));
+            /*
+                        for (int i = 0; i < 3; i++)
+                        {
+                            slist.Add(s);
+                        }
+                        try
+                        {
+                            testCourse.AddStudents(slist);
+                        }
+                        catch(Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                            Console.WriteLine();
+                            Console.WriteLine(e.ToString());
+                        }
 
-            for (int i = 0; i < 3; i++)
-            {
-                slist.Add(s);
-            }
-            try
-            {
-                testCourse.AddStudents(slist);
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-                Console.WriteLine();
-                Console.WriteLine(e.ToString());
-            }
-            
+
+                         */
             Console.Read();
         }
-        
+
+        //
+        private static bool CloseCourse(Course thisCourseToCLose)
+        {
+            thisCourseToCLose.isClosed = true;
+            Console.WriteLine("course is close");
+            return true;
+        }
     }
 }

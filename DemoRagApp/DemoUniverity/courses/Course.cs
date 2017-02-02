@@ -15,10 +15,13 @@ namespace DemoUniversity.course
     {
         private string title;
         private string major;
+        public Boolean isClosed = false;
         private DateTime timeOfDay;
         private int creditHour;
         private List<Student> studentRoster = new List<Student>();
         private DateTime dateTime;
+        public delegate bool CloseRegistration(Course thisCoursetoClose);
+        public CloseRegistration cr = null;
 
         public Course(string title, DateTime timeofDay,int creditHour, string major = "DateTime timeofDay" )
         {
@@ -34,18 +37,32 @@ namespace DemoUniversity.course
         }
         public Student GetStudentByID(int id)
         {
+            var temp = from x in studentRoster
+                       where x.ID == id
+                       select x;
             var student = studentRoster.Where(x => x.ID == id).FirstOrDefault();
             return student;
         }
         public IEnumerable<Student> GetStudentByName(String Firstname)
         {
-            var student = studentRoster.Where(x => x.Fullname.Equals($"{Firstname} a"));
+            var student = studentRoster.Where(x => x.Fullname.Equals($"{Firstname}"));
             return student;
         }
+        public Student GetStudentByFullName(String name, String lastname)
+        {
+            return GetStudentByFullName("{name} {lastname}");
+        }
+        public Student GetStudentByFullName(String Name)
+        {
+            var student = studentRoster.Where(x => x.Fullname.Equals(Name)).FirstOrDefault();
+            return student;
+        }
+
         public bool isFull
         {
             get
             {
+                
                 return studentRoster.Count == Global.maxStudents;  
             }
         }
@@ -92,6 +109,10 @@ namespace DemoUniversity.course
 
             int count = studentRoster.Count;
             studentRoster.Add(student);
+            if(cr !=null && isFull)
+            {
+                cr(this);
+            }
             return true;
         }
 
@@ -116,7 +137,11 @@ namespace DemoUniversity.course
         {
             throw new NotImplementedException();
         }
-
+        public bool RemoveStudentById(int id)
+        {
+            return studentRoster.Remove(GetStudentByID(id));
+          //  return false;
+        }
         public bool RemoveStudent(int id)
         {
             throw new NotImplementedException();

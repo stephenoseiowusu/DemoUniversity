@@ -20,7 +20,13 @@ namespace DemoUniversity.Users
             return base.ToString();
         }
 
-        
+      
+
+        //    public void setClosedFlag(Course c)
+        //  {
+        //    c
+        // }
+
     }
     
 }
