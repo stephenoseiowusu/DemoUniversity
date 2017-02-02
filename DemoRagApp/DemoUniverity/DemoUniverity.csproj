@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="courses\Courses.cs" />
+    <Compile Include="courses\Course.cs" />
     <Compile Include="courses\iCourse.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="users\Administrator.cs" />

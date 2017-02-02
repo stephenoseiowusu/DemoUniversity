@@ -27,9 +27,21 @@ namespace DemoUniversity.course
             this.timeOfDay = timeofDay;
             this.creditHour = creditHour;
         }
-
-
-    
+        public Course(String title, DateTime timeofDay)
+        {
+            this.title = title;
+            this.timeOfDay = timeofDay;
+        }
+        public Student GetStudentByID(int id)
+        {
+            var student = studentRoster.Where(x => x.ID == id).FirstOrDefault();
+            return student;
+        }
+        public IEnumerable<Student> GetStudentByName(String Firstname)
+        {
+            var student = studentRoster.Where(x => x.Fullname.Equals($"{Firstname} a"));
+            return student;
+        }
         public bool isFull
         {
             get

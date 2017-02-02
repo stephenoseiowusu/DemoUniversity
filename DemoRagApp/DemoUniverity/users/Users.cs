@@ -9,8 +9,8 @@ namespace DemoUniversity.Users
     public  abstract class Users
     {
         #region fields
-        private string firstname;
-        private string lastname;
+        public string firstname;
+        public string lastname;
         protected string password;
         private string email;
         private int id;
@@ -43,7 +43,7 @@ namespace DemoUniversity.Users
 
         #region Property
         public String Fullname {
-            get { return $"{firstname}    {lastname}"; }
+            get { return $"{firstname} {lastname}"; }
             set { firstname = value.Split(' ')[0];
                 lastname = value.Split(' ')[1];
             }

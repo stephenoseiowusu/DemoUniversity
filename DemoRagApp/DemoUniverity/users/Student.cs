@@ -1,4 +1,4 @@
-﻿using DemoUniversity.courses;
+﻿using DemoUniversity.course;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace DemoUniversity.Users
         private String major;
         private bool isFullTime;
        // List<Courses> classes = new List<Courses>();
-        Dictionary<string, Courses> classes = new Dictionary<string, Courses>();
+        Dictionary<string, Course> classes = new Dictionary<string, Course>();
         //enum year
         //array of their courses 
         public Student()
@@ -39,7 +39,7 @@ namespace DemoUniversity.Users
             }
             else
             {
-                foreach( KeyValuePair<String,Courses> item in classes)
+                foreach( KeyValuePair<String,Course> item in classes)
                 {
                     sb.Append("\n");
                     sb.Append(item.Value.titles);
