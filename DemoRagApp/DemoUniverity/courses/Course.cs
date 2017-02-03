@@ -175,6 +175,11 @@ namespace DemoUniversity.course
         {
             return Task.Run(() => { return studentRoster; }); 
         }     
+
+        public IEnumerable<Student> GetIenumerableStudentList()
+        {
+            return studentRoster;
+        }
         private bool SpaceCheck(int countDracula)
         {
             if(countDracula > Global.maxStudents)

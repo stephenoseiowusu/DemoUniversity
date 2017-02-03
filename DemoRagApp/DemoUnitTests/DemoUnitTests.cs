@@ -12,11 +12,13 @@ namespace DemoUnitTests
     [TestFixture]
     public class DemoUnitTests
     {
-
+        Course TestCourse;
+        Student testStudent;
         [SetUp]
         protected void SetUpMockData()
         {
-
+            TestCourse = new Course("dotnet", new DateTime());
+            testStudent = new Student("test", "lname", "pwd", "email", 1);
         }
         [Test]
         public void AddNUmbers()
@@ -34,9 +36,17 @@ namespace DemoUnitTests
        
         [Test]
        
-        public void CourseFullException()
+        public void CoursesFullException()
         {
-            Course testCourse = new Course("courses100", new DateTime());
+            
+            Course dotnet = new Course("dotnet", new DateTime());
+            dotnet.cr = Administrator.CloseCourse;
+            for (int i = 1; i < 4; i++)
+            {
+                dotnet.AddStudent(new Student($"test{i}","lname","pwd","email",i));
+            }
+            #region Arrange
+            /*Course testCourse = new Course("courses100", new DateTime());
             Student s = new Student("f", "l", "pwd", "aaa.com", 1);
             Users u = Administrator.getInstance();
             List<Student> slist = new List<Student>();
@@ -54,14 +64,18 @@ namespace DemoUnitTests
             Student erik = new Student("Erik", "a", "pwd", "8@8.com", 8);
             Student summer = new Student("Summer", "a", "pwd", "9@9.com", 9);
             Student kirk = new Student("Stephen", "ab", "pwd", "10@10.com", 10);
-            Course dotnet = new Course("dotnet", new DateTime());
-            dotnet.cr = Administrator.CloseCourse;
+            */
+            #endregion
 
-            dotnet.AddStudent(paul);
-            dotnet.AddStudent(mike);
-            dotnet.AddStudent(stephen);
-            
-            Assert.Throws<System.Exception> (() => dotnet.AddStudent(kirk));
+            #region admin
+           
+           // dotnet.cr = Administrator.CloseCourse;
+
+           // dotnet.AddStudent(paul);
+            //dotnet.AddStudent(mike);
+            //dotnet.AddStudent(stephen);
+            #endregion
+            Assert.Throws<System.Exception> (() => dotnet.AddStudent(testStudent));
         }
     }
 }

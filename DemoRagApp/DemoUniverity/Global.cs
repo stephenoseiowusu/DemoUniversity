@@ -8,7 +8,7 @@ namespace DemoUniversity
 {
     static class Global
     {
-       public static int maxStudents = 4;
+       public static int maxStudents = 100;
        
     }
 
