@@ -41,6 +41,7 @@ namespace DemoUniversity.Users
         {
             thisCourseToCLose.isClosed = true;
             Console.WriteLine("course is close");
+            throw new Exception();
             return true;
         }
         public static bool ChangeCourseStatus(Course thisCourseToChange)
