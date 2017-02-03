@@ -19,7 +19,15 @@ namespace DemoUnitTests
             //act
             int answer = i + d;
             //assert
-            Assert.AreEqual(1,1);
+            Assert.AreEqual(answer,i + d);
+            Assert.AreNotEqual(answer,i);
+            
+        }
+        [Test]
+        public void test2(int d = 2)
+        {
+            int w = 2;
+            Assert.AreEqual(d, w);
         }
     }
 }
