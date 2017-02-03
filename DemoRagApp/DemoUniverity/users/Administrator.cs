@@ -9,13 +9,29 @@ namespace DemoUniversity.Users
 {
     public  class Administrator : Users
     {
+        private static Administrator admin = null;
         public void setPassword(ref String password)
         {
             this.password = password;
             this.password = password;
             this.password = password;
         }
+        private Administrator()
+        {
 
+        }
+        public static Administrator getInstance()
+        {
+            if(admin == null)
+            {
+                admin = new Administrator();
+                return admin;
+            }
+            else
+            {
+                return admin;
+            }
+        }
         public override String getInfo()
         {
             return base.ToString();
@@ -34,11 +50,7 @@ namespace DemoUniversity.Users
             return true;
         }
 
-        //    public void setClosedFlag(Course c)
-        //  {
-        //    c
-        // }
-
+        
     }
     
 }

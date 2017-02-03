@@ -5,11 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using DemoUniversity.courses;
 using DemoUniversity.Users;
+using System.Threading;
 
 //dssdfsdf
 namespace DemoUniversity.course
 {
+
     
+
 
     public class Course : iCourse
     {
@@ -89,8 +92,14 @@ namespace DemoUniversity.course
                 throw new NotImplementedException();
             }
         }
+        
 
-    
+        public void PrintRosterCount()
+        {
+         
+            Thread.Sleep(2000);
+            Console.WriteLine("num of students: " + studentRoster.Count);
+        }
         public string titles
         {
             get
@@ -154,9 +163,18 @@ namespace DemoUniversity.course
 
         public List<Student> StudentRoster()
         {
-            throw new NotImplementedException();
+            return studentRoster;
         }
-
+        public async Task<List<Student>> GetStudentRoster()
+        {
+            Console.WriteLine("start async");
+            var results = await FetchRoster();
+            return studentRoster;
+        }
+        public Task<List<Student>> FetchRoster()
+        {
+            return Task.Run(() => { return studentRoster; }); 
+        }     
         private bool SpaceCheck(int countDracula)
         {
             if(countDracula > Global.maxStudents)

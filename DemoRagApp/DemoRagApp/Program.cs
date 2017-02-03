@@ -7,6 +7,7 @@ using DemoUniversity;
 using DemoUniversity.Users;
 using DemoUniversity.courses;
 using DemoUniversity.course;
+using System.Threading;
 //using DemoUniversity.Users.Student;
 namespace DemoRagApp
 {
@@ -16,7 +17,7 @@ namespace DemoRagApp
         {
             Course testCourse = new Course("courses100",new DateTime());
             Student s = new Student("f", "l", "pwd", "aaa.com", 1);
-            Users u = new Administrator();
+            Users u = Administrator.getInstance();
             List<Student> slist = new List<Student>();
             testCourse.AddStudent(s);
          //   Console.WriteLine(testCourse.rosterCount);
@@ -34,6 +35,7 @@ namespace DemoRagApp
             Student kirk = new Student("Stephen", "ab", "pwd", "10@10.com", 10);
             Course dotnet = new Course("dotnet", new DateTime());
             dotnet.cr = Administrator.CloseCourse;
+            
             dotnet.AddStudent(paul);
             dotnet.AddStudent(mike);
             dotnet.AddStudent(stephen);
@@ -46,6 +48,12 @@ namespace DemoRagApp
             dotnet.AddStudent(kirk);
             dotnet.AddStudent(kirk);
             dotnet.AddStudent(kirk);
+            var studentlist = dotnet.GetStudentRoster();
+            Console.WriteLine( studentlist.Result.Count);
+           // t1.Join();
+            
+            Thread t2 = new Thread(dotnet.PrintRosterCount);
+            t2.Start();
             // dotnet.RemoveStudentById(paul.ID);
             // dotnet.cr = CloseCourse;
             // Console.WriteLine(dotnet.GetStudentByName("Paul"));
