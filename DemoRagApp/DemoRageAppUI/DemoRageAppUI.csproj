@@ -429,9 +429,9 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DemoUniverity\DemoUniverity.csproj">
+    <ProjectReference Include="..\DemoUniverity\DemoUniversity.csproj">
       <Project>{0ef309f8-5525-4f4f-bb89-b1be0409c98c}</Project>
-      <Name>DemoUniverity</Name>
+      <Name>DemoUniversity</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

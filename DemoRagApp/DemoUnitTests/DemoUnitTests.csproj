@@ -58,9 +58,9 @@
       <Project>{2d864656-868d-4a3f-a7c3-7ac0bc528bcf}</Project>
       <Name>DemoRagApp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DemoUniverity\DemoUniverity.csproj">
+    <ProjectReference Include="..\DemoUniverity\DemoUniversity.csproj">
       <Project>{0ef309f8-5525-4f4f-bb89-b1be0409c98c}</Project>
-      <Name>DemoUniverity</Name>
+      <Name>DemoUniversity</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

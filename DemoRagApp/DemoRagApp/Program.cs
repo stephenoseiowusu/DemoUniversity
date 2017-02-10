@@ -12,7 +12,7 @@ using System.Threading;
 namespace DemoRagApp
 {
     class Program
-    {
+    {/*
         static void Main(string[] args)
         {
             Course testCourse = new Course("courses100",new DateTime());
@@ -77,10 +77,10 @@ namespace DemoRagApp
 
 
                          */
-            Console.Read();
+            //Console.Read();
         }
 
         //
        
     }
-}
+

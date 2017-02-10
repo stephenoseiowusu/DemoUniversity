@@ -22,7 +22,7 @@ namespace DemoUniversity.course
         private DateTime timeOfDay;
         private int creditHour;
         private List<Student> studentRoster = new List<Student>();
-        private DateTime dateTime;
+     //   private DateTime dateTime;
         public delegate bool CloseRegistration(Course thisCoursetoClose);
         public CloseRegistration cr = null;
 
