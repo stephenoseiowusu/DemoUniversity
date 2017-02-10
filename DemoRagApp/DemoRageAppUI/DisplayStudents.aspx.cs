@@ -12,6 +12,7 @@ namespace DemoRageAppUI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             Course testCourse = new Course("courses100", new DateTime());
             Student s = new Student("f", "l", "pwd", "aaa.com", 1);
             Users u = Administrator.getInstance();
@@ -47,11 +48,12 @@ namespace DemoRageAppUI
             dotnet.AddStudent(kirk);
             var studentlist = dotnet.GetStudentRoster();
             Console.WriteLine(studentlist.Result.Count);
-
-            IEnumerable<string> thisthat = new IEnumerable<string>();
+            
+            IEnumerable<string> thisthat = new List<string>();
             for(int i = 0; i < dotnet.GetIenumerableStudentList().Count(); i++ )
             {
-                thisthat.
+               
+                
             }
             ListView1.DataSource = dotnet.GetIenumerableStudentList();
             ListView1.DataBind();

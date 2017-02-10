@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DemoUniversity.Users
-{
+{   
    public  class Student:Users
     {
         private String major;
