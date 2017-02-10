@@ -9,14 +9,15 @@ namespace DemoRagApp
 
     class Model
     {
+        public int Login()
+        {
+            return 0;
+        }
+        public int Register(String Username, String password)
+        {
+            return 1;
+        }
 
     }
-    public int Login()
-    {
-
-    }
-    public int Register(String Username, String password)
-   {
-   }
 
 }
