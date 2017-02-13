@@ -15,7 +15,7 @@ namespace DemoRagApp
         }
         public int Register(String Username, String password)
         {
-            return 1;
+            return Database.registerAdmin(Username,password) == true ? 1:0;
         }
 
     }

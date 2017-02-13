@@ -11,17 +11,18 @@ namespace DemoRagApp
     {
         static void Main(string[] args)
         {
+           
             Model model = new Model();
             int start = 1;
             do
             {
-               // Console.Write(start);
+               
                 switch (start)
                 {
                     case 1:
                         String username = View.getUsername();
                         String password = View.getPassword();
-                      //  Model.Login = 
+                        Console.WriteLine( model.Register(username, password));
                         break;
                     case 2:     
                         int role = View.getRole();

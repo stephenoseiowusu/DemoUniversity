@@ -23,7 +23,7 @@ public class Database
       String query = which  == 1 ? "Select username from students where username = @username and password = @password" : "select username from admin where username = @username and password = @password";
       Initialize();
       SqlCommand command = new SqlCommand(query);
-      //command.Parameters.Add(new S)
+      command.Parameters.Add(new SqlParameter("username",username));
       conn.close();
     }
     public static void Initialize()

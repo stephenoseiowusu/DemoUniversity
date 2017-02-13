@@ -11,7 +11,7 @@ namespace DemoUniversity.Users
     {
         private String major;
         private bool isFullTime;
-       // List<Courses> classes = new List<Courses>();
+
         Dictionary<string, Course> classes = new Dictionary<string, Course>();
         //enum year
         //array of their courses 
