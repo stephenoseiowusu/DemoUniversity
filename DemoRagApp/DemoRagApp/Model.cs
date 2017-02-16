@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DemoUniversity.Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +10,55 @@ namespace DemoRagApp
 
     class Model
     {
-        public int Login()
+
+        static Users user;
+      
+        public bool Login(String username,String password)
         {
-            return 0;
+            if (Database.login(username, password))
+            {
+                user = Database.getUser();
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
+
         }
-        public int Register(String Username, String password)
+        public int Register(String Username, String password, String email,String first, String last, int type)
         {
-            return Database.registerAdmin(Username,password) == true ? 1:0;
+            if (Database.registerUser(Username, password, first, last, type) == true)
+            {
+               
+                if(type == 1)
+                {
+                    user = new Student(first, last, password, email, 10, "undecided");
+                }
+                else
+                {
+                    user = Administrator.getInstance();
+                }
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        public Dictionary<int,String> getMajors()
+        {
+            return Database.retrievemajors();
+        }
+        public bool setMajor(String major)
+        {
+           return  Database.insertMajor(user.ID, major);
+
+        }
+        public int classRegistration(int ClassID)
+        {
+            return 1;
         }
 
     }

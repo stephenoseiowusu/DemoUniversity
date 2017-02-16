@@ -20,18 +20,37 @@ namespace DemoRagApp
                 switch (start)
                 {
                     case 1:
-                        String username = View.getUsername();
-                        String password = View.getPassword();
-                        Console.WriteLine( model.Register(username, password));
+                        String username = View.getEmailAdress();
+                        String password = View.getPassword(); ;
+                        String fullname = View.getFullname();
+                        string[] firstlast = fullname.Split(' ');
+
+                        int role = View.getRole();
+                        Console.WriteLine( role);
+                        if(role == 1)
+                        {
+                            Boolean major = false;
+                            while(major == false)
+                            {
+                                Dictionary<int,String> majorList = model.getMajors();
+                                String decideM = View.generateList(majorList);
+                                Console.WriteLine("decide is" +decideM);
+                                model.
+                                major = true;
+                            }
+                           
+                        }
                         break;
                     case 2:     
-                        int role = View.getRole();
+                        //int role = View.getRole();
                         break;
+                    case 5:
+                       
                     default:
                         break;
 
                 }
-                start = View.choose();
+               // start = View.choose();
                // Console.WriteLine("View = " + start);
             } while (start != 4);
         }
