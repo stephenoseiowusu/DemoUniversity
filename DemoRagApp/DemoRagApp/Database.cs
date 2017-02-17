@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Data;
+
 using System.Data.SqlClient;
 namespace DemoRagApp
 {
@@ -43,6 +44,7 @@ namespace DemoRagApp
             return (reader.Read()) == true ? true : false;
 
         }
+        
         public static Dictionary<int,String> retrievemajors()
         {
             Dictionary<int, String> result = new Dictionary<int, string>();
@@ -61,15 +63,28 @@ namespace DemoRagApp
             conn.Close();
             return result;
         }
-        public static bool insertMajor(int id,String Major)
+        public static bool insertMajor(int id, String Major)
         {
-            String major;
-            retrievemajors().TryGetValue(id, out major);
-            String query = "Update Students set major = " + "where student_id = " + id;
             Initialize();
+
+
+            //  retrievemajors().TryGetValue(id, out major);
+            int major_id=1;
+            String querys = "Select major_id from Major where  major_name = " + "'" + Major + "'";
+            SqlCommand getMajorID = new SqlCommand(querys, conn);
+
+            SqlDataReader read = getMajorID.ExecuteReader();
+            Console.WriteLine(getMajorID.CommandText);
+            if (read.Read()) { 
+            major_id = read.GetInt32(read.GetOrdinal("major_id"));
+            }
+            read.Close();
+            String query = "Update Students set student_major = " + major_id + " where student_id = " + id;
+            Console.WriteLine(query);
             SqlCommand comm = new SqlCommand(query, conn);
             int result = comm.ExecuteNonQuery();
-            if(result == 1)
+            conn.Close();
+            if (result == 1)
             {
                 return true;
             }
@@ -77,51 +92,107 @@ namespace DemoRagApp
             {
                 return false;
             }
+            
         }
-        public Users InformUser(String username)
+        public static Users InformUser(String username)
         {
+            Student student;
             Initialize();
             String query1 = "Select usertype,userid from Student where username = @username";
             SqlCommand command = new SqlCommand(query1, conn);
             command.Parameters.AddWithValue("username", username);
             SqlDataReader reader = command.ExecuteReader();
-            if(reader.Read())
+            if (reader.Read())
             {
-               if(reader.GetSqlInt64(0) == 0)
-               {
+                if (reader.GetSqlInt64(0) == 0)
+                {
+                    conn.Close();
                     return Administrator.getInstance();
-               }
+                }
             }
             else
             {
-                String query = "Select major from Student where student_id = @studentid";
 
-                command = new SqlCommand(query, conn);
-                command.Parameters.AddWithValue("studentid", username.ID);
+                String query3 = "Select firstname, lastname, password,email,id from Users where username = @username";
+                command = new SqlCommand(query3, conn);
+                command.Parameters.AddWithValue("username", username);
                 reader = command.ExecuteReader();
-                Student stu;
                 if (reader.Read())
                 {
-                    String major = reader.GetString(0);
-                    stu = new Student(username.firstname, username.lastname, username.Password, username.Email, username.ID, major);
+                   // conn.Close();
+                    student = new Student(reader.GetString(0), reader.GetString(1), reader.GetString(3), reader.GetString(4), reader.GetInt32(5));
+                    String query = "Select major from Student where student_id = @studentid";
+                    command = new SqlCommand(query3, conn);
+                    command.Parameters.AddWithValue("studentid", student.ID);
+                    reader = command.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        if(!reader.GetString(0).ToString().Equals(""))
+                        {
+
+                            student.majorProperty = reader.GetString(0);
+                        }
+                      
+                    }
+
+                    conn.Close();
+                    return student;
                 }
-                else
-                {
-                    stu = new Student(username.firstname, username.lastname, username.Password, username.Email, username.ID);
-                }
-                return stu;
             }
-           
 
-
-        }
+            conn.Close();
+            return null;
+            }
         public static int registerForClass(String username)
         {
             return 0;
           
         }
+        public static int getUserID(String username)
+        {
+            String query = "Select username from Users where username = @user";
+            SqlCommand command = new SqlCommand(query, conn);
+            command.Parameters.AddWithValue("user", username);
+            Initialize();
+            SqlDataReader read = command.ExecuteReader();
+            if (read.Read())
+            {
+                conn.Close();
+                return read.GetInt32(0);
+
+            }
+            else
+            {
+                conn.Close();
+                return -1;
+            }
+        }
+        private static Boolean grabusername(String username)
+        {
+            String query = "Select username from Users where username = @user";
+            SqlCommand command = new SqlCommand(query, conn);
+            command.Parameters.AddWithValue("user", username);
+            Initialize();
+            SqlDataReader read = command.ExecuteReader();
+            if (read.Read())
+            {
+                conn.Close();
+                return false;
+
+            }
+            else
+            {
+                conn.Close();
+                return true;
+            }
+           
+        }
         public static Boolean registerUser(string username, string password, String firstname, String lastname, int usertype)
         {
+            if (grabusername(username) == true)
+            {
+                return false;
+            }
             String query = "Insert into Users(emailaddress,passwords,usertype,firstname,lastname) values (@emailaddress,@passwords, @usertype,@firstname,@lastname)";
             Initialize();
          
@@ -134,7 +205,8 @@ namespace DemoRagApp
             command.Parameters.Add(new SqlParameter("lastname", lastname));
             int i = command.ExecuteNonQuery();
             conn.Close();
-            return i == 1? true : false;
+            Console.WriteLine(i + " result");
+            return i == 2? true : false;
            
         }
         public static void Initialize()

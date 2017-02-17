@@ -1,0 +1,15 @@
+﻿body {
+         background: url( "https://media.giphy.com/media/1IDqrFySO6y1a/giphy.gif");
+         margin:0;
+}
+#unihome{
+    margin:0px;
+}
+#fix-footer{
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    height: 135px;
+    width: 100%;
+    background: #1abc9c;
+}

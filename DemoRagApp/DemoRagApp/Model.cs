@@ -1,4 +1,5 @@
-﻿using DemoUniversity.Users;
+﻿using DemoUniversity.course;
+using DemoUniversity.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,15 @@ namespace DemoRagApp
     class Model
     {
 
-        static Users user;
+         Users user;
+        List<Course> AllCourse = new List<Course>();
+         
       
         public bool Login(String username,String password)
         {
             if (Database.login(username, password))
             {
-                user = Database.getUser();
+                user = Database.InformUser(username);
                 return true;
 
             }
@@ -27,18 +30,30 @@ namespace DemoRagApp
             }
 
         }
+       
         public int Register(String Username, String password, String email,String first, String last, int type)
         {
+            Console.WriteLine("DFssssDFFD");
             if (Database.registerUser(Username, password, first, last, type) == true)
             {
                
                 if(type == 1)
                 {
-                    user = new Student(first, last, password, email, 10, "undecided");
+                    int id = Database.getUserID(Username);
+                   user = new Student(first, last, password, email, id, "undecided");
+                    if (user == null)
+                    {
+                        Console.WriteLine("DFDFFD");
+                    }
+                    Console.WriteLine("DFDFFD");
                 }
                 else
                 {
                     user = Administrator.getInstance();
+                    if (user != null)
+                    {
+                        Console.WriteLine("DFDFFD");
+                    }
                 }
                 return 1;
             }
@@ -53,6 +68,10 @@ namespace DemoRagApp
         }
         public bool setMajor(String major)
         {
+           if(user== null)
+            {
+                Console.WriteLine("DFDFFD");
+            }
            return  Database.insertMajor(user.ID, major);
 
         }
@@ -60,6 +79,7 @@ namespace DemoRagApp
         {
             return 1;
         }
+        
 
     }
 

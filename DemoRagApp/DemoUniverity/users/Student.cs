@@ -11,7 +11,7 @@ namespace DemoUniversity.Users
     {
         private String major;
         private bool isFullTime;
-
+        public String majorProperty { get { return major; } set { major = majorProperty; } }
         Dictionary<string, Course> classes = new Dictionary<string, Course>();
         //enum year
         //array of their courses 

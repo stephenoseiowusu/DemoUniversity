@@ -24,7 +24,7 @@ namespace DemoRagApp
                         String password = View.getPassword(); ;
                         String fullname = View.getFullname();
                         string[] firstlast = fullname.Split(' ');
-
+                        model.Register(username, password, "lol", "dsf", "dsfs", 1);
                         int role = View.getRole();
                         Console.WriteLine( role);
                         if(role == 1)
@@ -35,8 +35,9 @@ namespace DemoRagApp
                                 Dictionary<int,String> majorList = model.getMajors();
                                 String decideM = View.generateList(majorList);
                                 Console.WriteLine("decide is" +decideM);
-                                model.
-                                major = true;
+                                model.setMajor(decideM);
+                            //    model.
+                                //major = true;
                             }
                            
                         }
