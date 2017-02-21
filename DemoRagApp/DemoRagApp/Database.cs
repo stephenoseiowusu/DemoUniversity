@@ -104,45 +104,46 @@ namespace DemoRagApp
         {
             Student student;
             Initialize();
-            String query1 = "Select usertype,userid from Student where username = @username";
+            String query1 = "Select usertype,userid from Users where emailaddress = @username";
             SqlCommand command = new SqlCommand(query1, conn);
             command.Parameters.AddWithValue("username", username);
             SqlDataReader reader = command.ExecuteReader();
             if (reader.Read())
             {
-                if (reader.GetSqlInt64(0) == 0)
+                if (reader.GetSqlValue(0).ToString() == "0")
                 {
                     conn.Close();
                     return Administrator.getInstance();
                 }
-            }
-            else
-            {
 
-                String query3 = "Select firstname, lastname, password,email,id from Users where username = @username";
-                command = new SqlCommand(query3, conn);
-                command.Parameters.AddWithValue("username", username);
-                reader = command.ExecuteReader();
-                if (reader.Read())
+                else
                 {
-                   // conn.Close();
-                    student = new Student(reader.GetString(0), reader.GetString(1), reader.GetString(3), reader.GetString(4), reader.GetInt32(5));
-                    String query = "Select major from Student where student_id = @studentid";
+
+                    String query3 = "Select firstname, lastname, password,email,id from Users where username = @username";
                     command = new SqlCommand(query3, conn);
-                    command.Parameters.AddWithValue("studentid", student.ID);
+                    command.Parameters.AddWithValue("username", username);
                     reader = command.ExecuteReader();
                     if (reader.Read())
                     {
-                        if(!reader.GetString(0).ToString().Equals(""))
+                        // conn.Close();
+                        student = new Student(reader.GetString(0), reader.GetString(1), reader.GetString(3), reader.GetString(4), reader.GetInt32(5));
+                        String query = "Select major from Student where student_id = @studentid";
+                        command = new SqlCommand(query3, conn);
+                        command.Parameters.AddWithValue("studentid", student.ID);
+                        reader = command.ExecuteReader();
+                        if (reader.Read())
                         {
+                            if (!reader.GetString(0).ToString().Equals(""))
+                            {
 
-                            student.majorProperty = reader.GetString(0);
+                                student.majorProperty = reader.GetString(0);
+                            }
+
                         }
-                      
-                    }
 
-                    conn.Close();
-                    return student;
+                        conn.Close();
+                        return student;
+                    }
                 }
             }
 

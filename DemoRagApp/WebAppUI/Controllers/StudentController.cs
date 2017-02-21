@@ -7,8 +7,10 @@ using System.Web.Mvc;
 
 namespace WebAppUI.Controllers
 {
+    
     public class StudentController : Controller
     {
+        Users currentuser;
         // GET: Student
         public ActionResult Index()
         {
@@ -16,11 +18,16 @@ namespace WebAppUI.Controllers
         }
         public ActionResult getStudent (Student student)
         {
+            currentuser = student;
+            ViewBag.user = currentuser;
             return View();
         }
         public ViewResult getAdmin(Administrator admin)
         {
+            currentuser = admin;
+            ViewBag.user = currentuser;
             return View();
         }
+        
     }
 }

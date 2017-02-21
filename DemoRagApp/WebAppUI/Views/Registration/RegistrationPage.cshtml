@@ -2,7 +2,12 @@
 <body>
     <script  type = "text/javascript">
         alert("hello");
+         
     </script>
+  @if(ViewBag.isLogged == false)
+  {
+     @Html.Label("Invalid Credentials")
+  }
   @using (Html.BeginForm("login", "Home", FormMethod.Post))
   {
 
@@ -15,8 +20,6 @@
             <center> @Html.TextBox("password")</center>
         </div>
 
-        <center><input type="submit" /> </center> 
-
-
+        <center><input type="submit" value="Login" /> </center> 
   }
 </body>

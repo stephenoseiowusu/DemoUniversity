@@ -26,23 +26,24 @@ namespace WebAppUI.Controllers
             bool did = mod.Login(username, password);
             if(did == true)
             {
-                StudentController con = new StudentController();
+                
                 Users which = mod.returnUser();
                 if(which is Student)
                 {
-                    return RedirectToAction("getStudent",con);
+                    return RedirectToAction("getStudent","Student", new { student = which });
                 }
                 else
                 {
-                    return con.getAdmin((Administrator)which);
+                    return RedirectToAction("getAdmin","Student",new { admin = which });
                 }
                 
             }
             else
             {
                    ViewBag.isLogged = false;
-                RegistrationController co = new RegistrationController();
-                   return RedirectToAction("RegistrationPage", new RegistrationController());
+                   RegistrationController co = new RegistrationController();
+                   
+                   return RedirectToAction("RegistrationPage","Registration");
                 //   return null;
             }
 
