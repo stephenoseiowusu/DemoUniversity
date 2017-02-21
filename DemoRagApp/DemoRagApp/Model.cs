@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace DemoRagApp
 {
 
-    class Model
+    public class Model
     {
 
          Users user;
@@ -30,7 +30,10 @@ namespace DemoRagApp
             }
 
         }
-       
+        public Users returnUser()
+        {
+            return user;
+        }
         public int Register(String Username, String password, String email,String first, String last, int type)
         {
             Console.WriteLine("DFssssDFFD");

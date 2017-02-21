@@ -34,14 +34,20 @@ namespace DemoRagApp
         /// <returns></returns>
         public static Boolean login(String username, String password)
         {
-            String query = "Select username, usertype from users where username = @username and password = @password";
+            Boolean loggedin = false;
+            String query = "Select emailaddress, usertype from users where emailaddress = @username and passwords = @password";
             Initialize();
             SqlCommand command = new SqlCommand(query, conn);
             command.Parameters.Add(new SqlParameter("username", username));
             command.Parameters.Add(new SqlParameter("password", password));
             SqlDataReader reader = command.ExecuteReader();
+            if(reader.Read())
+            {
+                loggedin = true;
+            }
+           
             conn.Close();
-            return (reader.Read()) == true ? true : false;
+            return loggedin;
 
         }
         

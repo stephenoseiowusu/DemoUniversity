@@ -1,0 +1,22 @@
+﻿
+<body>
+    <script  type = "text/javascript">
+        alert("hello");
+    </script>
+  @using (Html.BeginForm("login", "Home", FormMethod.Post))
+  {
+
+        <div class="form-group">
+            <center><label for="email">username</label></center>
+           <center> @Html.TextBox("username")</center>
+        </div>
+        <div class="form-group">
+            <center><label for="email">password</label></center>
+            <center> @Html.TextBox("password")</center>
+        </div>
+
+        <center><input type="submit" /> </center> 
+
+
+  }
+</body>

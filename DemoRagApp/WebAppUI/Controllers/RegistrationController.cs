@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -15,10 +16,15 @@ namespace WebAppUI.Controllers
         {
             return View();
         }
+        public ViewResult RegistrationPage()
+        {
+            return View();
+        }
         [HttpPost]
-        public HttpResponseMessage Register(String firstname, String lastname, String username, String password,int usertype)
+        public HttpResponseMessage Register(JObject reg)
         {
             var response = new HttpResponseMessage();
+            
             response.StatusCode = HttpStatusCode.Created;
             return response;
         }

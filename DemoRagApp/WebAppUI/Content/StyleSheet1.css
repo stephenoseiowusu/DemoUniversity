@@ -1,5 +1,5 @@
 ﻿body {
-         background: url( "https://media.giphy.com/media/1IDqrFySO6y1a/giphy.gif");
+         background: url( "https://upload.wikimedia.org/wikipedia/commons/f/f9/UniversityofMarylandLawSchool_08_11.jpg");
          margin:0;
 }
 #unihome{
@@ -12,4 +12,9 @@
     height: 135px;
     width: 100%;
     background: #1abc9c;
+}
+#reg{
+    border-style: solid;
+    margin-left:100px;
+
 }

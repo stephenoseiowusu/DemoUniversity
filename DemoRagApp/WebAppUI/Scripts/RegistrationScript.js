@@ -1,0 +1,5 @@
+﻿
+function register(var name)
+{
+
+}
