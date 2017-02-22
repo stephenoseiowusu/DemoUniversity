@@ -119,14 +119,15 @@ namespace DemoRagApp
                 else
                 {
 
-                    String query3 = "Select firstname, lastname, password,email,id from Users where username = @username";
+                    String query3 = "Select firstname, lastname, passwords,emailaddress,userid from Users where emailaddress = @username";
                     command = new SqlCommand(query3, conn);
                     command.Parameters.AddWithValue("username", username);
+                    reader.Close();
                     reader = command.ExecuteReader();
                     if (reader.Read())
                     {
                         // conn.Close();
-                        student = new Student(reader.GetString(0), reader.GetString(1), reader.GetString(3), reader.GetString(4), reader.GetInt32(5));
+                        student = new Student(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(4));
                         String query = "Select major from Student where student_id = @studentid";
                         command = new SqlCommand(query3, conn);
                         command.Parameters.AddWithValue("studentid", student.ID);
