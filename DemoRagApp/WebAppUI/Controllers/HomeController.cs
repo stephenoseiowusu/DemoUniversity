@@ -22,7 +22,7 @@ namespace WebAppUI.Controllers
         [HttpPost]
         public ActionResult login(String username,String password)
         {
-            Model mod = new Model();
+            Model mod = Model.getModel();
             bool did = mod.Login(username, password);
             if(did == true)
             {

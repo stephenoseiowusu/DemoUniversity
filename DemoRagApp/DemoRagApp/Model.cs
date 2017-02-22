@@ -14,8 +14,20 @@ namespace DemoRagApp
 
          Users user;
         List<Course> AllCourse = new List<Course>();
-         
-      
+        public static Model model;
+        public static Model getModel()
+        {
+            if (model == null)
+            {
+                model = new Model();
+            }
+            return model;
+        } 
+        public void setUserCredit()
+        {
+            Student u = (Student)user;
+            u.creditProperty = Database.getTotalCreditHours(u.ID);
+        }
         public bool Login(String username,String password)
         {
             if (Database.login(username, password))

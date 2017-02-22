@@ -100,6 +100,23 @@ namespace DemoRagApp
             }
             
         }
+        public static int getTotalCreditHours(int userid)
+        {
+            Initialize();
+            String query1 = "Select count(credit_hour) from Registration r inner join Course c on r.course_ID = c.Course_ID where student_Id = @userid";
+            SqlCommand command = new SqlCommand(query1, conn);
+            command.Parameters.AddWithValue("userid", userid);
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                String num = reader.GetSqlValue(0).ToString();
+                return int.Parse(num);
+            }
+            else
+            {
+                return 0;
+            }
+        }
         public static Users InformUser(String username)
         {
             Student student;
@@ -119,9 +136,9 @@ namespace DemoRagApp
                 else
                 {
 
-                    String query3 = "Select firstname, lastname, passwords,emailaddress,userid from Users where emailaddress = @username";
+                    String query3 = "Select firstname, lastname, passwords,emailaddress,userid from Users where emailaddress = " + "\'" + username + "\'";
                     command = new SqlCommand(query3, conn);
-                    command.Parameters.AddWithValue("username", username);
+                    //command.Parameters.AddWithValue("username", username);
                     reader.Close();
                     reader = command.ExecuteReader();
                     if (reader.Read())
@@ -131,6 +148,7 @@ namespace DemoRagApp
                         String query = "Select major from Student where student_id = @studentid";
                         command = new SqlCommand(query3, conn);
                         command.Parameters.AddWithValue("studentid", student.ID);
+                        reader.Close();
                         reader = command.ExecuteReader();
                         if (reader.Read())
                         {

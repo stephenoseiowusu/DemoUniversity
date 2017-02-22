@@ -4,12 +4,16 @@
         alert("hello");
          
     </script>
-  @if(ViewBag.isLogged == false)
-  {
-     @Html.Label("Invalid Credentials")
-  }
+
   @using (Html.BeginForm("login", "Home", FormMethod.Post))
   {
+    if (1 == 1)
+    {
+        //<p>Invalid Credentials</p>
+        @Html.Raw("<p>Invalid Credentials</p>")
+        //  @Html.Label("Invalid Credentials")
+    }
+
 
         <div class="form-group">
             <center><label for="email">username</label></center>
