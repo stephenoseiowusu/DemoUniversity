@@ -6,7 +6,7 @@
 <h2>ClassInfo</h2>
 @if (ViewBag.studentlist.Count > 0)
 {
-    @Html.Raw("<center><table  bgcolor='#00FF00' style='width:70%; border: 1px solid black;'> <tr> <th>FullName</th>  <th>dropstudent<th> </tr>");
+    @Html.Raw("<center><table style='width:70%; border: 1px solid black;bgcolor='#ffffff' '> <tr> <th>FullName</th>  <th>dropstudent<th> </tr>");
 
     foreach (var animal in ViewBag.studentlist)
     {
@@ -17,10 +17,8 @@
         @Html.Raw("</font>")
         @Html.Raw("</td>")
         @Html.Raw("<td>")
-        @Html.Raw("<font color='red'> <a href='")
-        @Url.Action("dropstudent", "classes", new { studentID = @animal.ID, classID = ViewBag.ClassID})
-        @Html.Raw("'>")
-        @Html.Raw("Drop Student</a>")
+        @Html.Raw("<font color='red'> dropstudent")
+        @Url.Action("dropstudent", "classes", new { Student = @animal.ID, classID = ViewBag.ClassID })
         @Html.Raw("</font>")
         @Html.Raw("</td>")
         @Html.Raw("</tr>")
@@ -32,7 +30,3 @@ else
 {
     @Html.Raw("<br/><center> No students Registered</center>")
 }
-
-
-
-

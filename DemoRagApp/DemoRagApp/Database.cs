@@ -335,7 +335,7 @@ namespace DemoRagApp
                 return -1;
             }
         }
-        private static Boolean grabusername(String username)
+        public  static Boolean grabusername(String username)
         {
             String query = "Select username from Users where username = @user";
             SqlCommand command = new SqlCommand(query, conn);
@@ -354,6 +354,29 @@ namespace DemoRagApp
                 return true;
             }
            
+        }
+        public static Boolean DeleteClass(int userid,int classid)
+        {
+            Initialize();
+            String query = "Delete from Registration where student_id = @userid and Course_id = @classid ";
+            SqlCommand command = new SqlCommand(query, conn);
+            command.Parameters.AddWithValue("userid", userid);
+            command.Parameters.AddWithValue("classid", classid);
+           
+          
+            int result = command.ExecuteNonQuery();
+            if (result == 1)
+            {
+                conn.Close();
+                return true;
+
+            }
+            else
+            {
+                conn.Close();
+                return false;
+            }
+
         }
         public static Boolean registerUser(string username, string password, String firstname, String lastname, int usertype)
         {

@@ -6,19 +6,19 @@
 @Html.Partial("navagation")
 <h2>Course</h2>
 
-    @if (ViewBag.Signup == 0)
+    @if (ViewBag.SignUp == 0)
     {
-        @Html.Raw("<strong><center>you have reached the max credit hours</center></strong>")
+        @Html.Raw("<center><div class='alert alert-danger'><strong>You have reached the max credit hours</strong> Invalid credentials </ div > </center>")
     }
-    else if (ViewBag.Signup == 1)
+    else if (ViewBag.SignUp == 1)
     {
-        @Html.Raw("<strong><center>adding this class would put you over the max credits</center></strong>")
+        @Html.Raw("<center><div class='alert alert-danger'><strong>Adding this class would put you over the max credits</strong> Invalid credentials </ div > </center>")
     }
-    else if (ViewBag.Signup == 3)
+    else if (ViewBag.SignUp == 3)
     {
         @Html.Raw("<strong><center>failure to insert</center></strong>")
     }
-    else if (ViewBag.Signup == 4)
+    else if (ViewBag.SignUp == 4)
     {
         @Html.Raw("<strong><center>you have entered an invalid course number</center></strong>")
     }
@@ -30,7 +30,7 @@
 
     @if (ViewBag.user.listCourse.Count > 0)
     {
-       @Html.Raw("<table style='width:100%; border: 1px solid black;'> <tr> <th>CourseName</th> <th>Major</th> <th>Credits</th> <th>Course id</th> <th>Time</th></tr>");
+       @Html.Raw("<table style='width:100%'; bgcolor='#ffffff'; border: '1px solid black;'> <tr> <th>CourseName</th> <th>Major</th> <th>Credits</th> <th>Course id</th> <th>Time</th></tr>");
 
             foreach (var animal in ViewBag.user.listCourse)
             {

@@ -24,9 +24,17 @@ namespace DemoRagApp
             }
             return model;
         } 
+        public void DeleteClass(int userid, int classID)
+        {
+            Database.DeleteClass(userid, classID);
+        }
         public List<Student> getByCourses(int id)
         {
-            List<Student> and = null;
+            AllCourse = new Dictionary<String, Course>();
+            AllCourse = Database.GetListOfCourse();
+            AllCourse = Database.setStudentList(AllCourse);
+
+            List<Student> and = new List<Student>();
             foreach (var newAnimal in AllCourse)
             {
                 if(newAnimal.Value.Courseidprop == id)
