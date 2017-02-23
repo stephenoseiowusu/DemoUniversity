@@ -17,6 +17,15 @@ namespace WebAppUI.Controllers
         {
             return View();
         }
+        public ActionResult getStudentMain()
+        {
+          
+            Student u = (Student)Model.getModel().returnUser();
+            ViewBag.credithours = u.creditProperty;
+            ViewBag.user = currentuser;
+            ViewBag.username = Model.getModel().returnUser().Fullname;
+            return View();
+        }
         public ActionResult getStudent (Student student)
         {
             currentuser = student;
@@ -30,7 +39,8 @@ namespace WebAppUI.Controllers
         public ViewResult getAdmin(Administrator admin)
         {
             currentuser = admin;
-            ViewBag.user = currentuser;
+            Model.getModel().setupAdmin();
+            ViewBag.Courses = Model.getModel().getCourses;
             return View();
         }
         

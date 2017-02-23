@@ -13,7 +13,8 @@ namespace DemoRagApp
     {
 
          Users user;
-        List<Course> AllCourse = new List<Course>();
+        Dictionary<String,Course> AllCourse = new Dictionary<String,Course>();
+        public Dictionary<String, Course> getCourses { get { return AllCourse; } }
         public static Model model;
         public static Model getModel()
         {
@@ -23,6 +24,30 @@ namespace DemoRagApp
             }
             return model;
         } 
+        public  void  setupAdmin()
+        {
+            AllCourse = Database.GetListOfCourse();
+            AllCourse = Database.setStudentList(AllCourse);
+        }
+        public  int registerCourse(int classid)
+        {
+            return Database.RegisterForClass(user.ID,classid);
+        }
+        public void setRegisteredCourses()
+        {
+            Student u = (Student)user;
+            u.listCourse = Database.getCourses(u.ID);
+            Console.WriteLine(u.Fullname);
+            foreach (var newAnimal in u.classes)
+            {
+                Console.WriteLine(newAnimal.Key);
+                Console.WriteLine(newAnimal.Value);
+                Console.WriteLine(newAnimal.ToString());
+            }
+           
+            user = u;
+            
+        }
         public void setUserCredit()
         {
             Student u = (Student)user;
@@ -41,6 +66,14 @@ namespace DemoRagApp
                 return false;
             }
 
+        }
+        public Student getStudent()
+        {
+            return (Student)user;
+        }
+        public Administrator getAdmin()
+        {
+            return (Administrator)user;
         }
         public Users returnUser()
         {

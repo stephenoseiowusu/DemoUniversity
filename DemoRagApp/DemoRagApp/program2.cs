@@ -11,8 +11,12 @@ namespace DemoRagApp
     {
         static void Main(string[] args)
         {
-           
-            Model model = new Model();
+
+            Console.WriteLine(Model.getModel().Login("james@gmail.com", "lol"));
+            Model.getModel().setRegisteredCourses();
+            Console.WriteLine(Model.getModel().getStudent().listCourse.Count);
+            Console.ReadLine();
+           /* Model model = new Model();
             int start = 1;
             do
             {
@@ -36,6 +40,7 @@ namespace DemoRagApp
                                 String decideM = View.generateList(majorList);
                                 Console.WriteLine("decide is" +decideM);
                                 model.setMajor(decideM);
+
                             //    model.
                                 //major = true;
                             }
@@ -53,7 +58,7 @@ namespace DemoRagApp
                 }
                // start = View.choose();
                // Console.WriteLine("View = " + start);
-            } while (start != 4);
+            } while (start != 4);*/
         }
 
    

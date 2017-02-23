@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Data;
 
 using System.Data.SqlClient;
+using DemoUniversity.course;
+
 namespace DemoRagApp
 {
 
@@ -69,6 +71,84 @@ namespace DemoRagApp
             conn.Close();
             return result;
         }
+        public static Dictionary<String, Course> setStudentList(Dictionary<String,Course> Courses)
+        {
+
+                Student student;
+                Initialize();
+                foreach(var newCourse in Courses)
+                 {
+                      String query3 = "Select firstname, lastname, passwords,emailaddress,userid from Users inner join Registration on Users.userid = Registration.student_id where Registration.course_id = @courseId";
+                      
+                      SqlCommand command = new SqlCommand(query3, conn);
+                      command.Parameters.AddWithValue("courseID", newCourse.Value.Courseidprop);
+                      SqlDataReader reader = command.ExecuteReader();
+                      while (reader.Read())
+                     {
+                      student = new Student(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(4));
+                      newCourse.Value.studentRosterprop.Add(student);
+                   }
+                reader.Close();
+            } 
+                
+                conn.Close();
+                
+                return Courses;
+            
+        }
+        public static Dictionary<String,Course>GetListOfCourse()
+        {
+            {
+                Dictionary<String, Course> result = new Dictionary<String, Course>();
+                String query = "Select Registration.course_id,credit_hour,time_of_day,course_name,major_name, COUNT(reg_id) as 'total students'from Registration inner join Course on Course.course_id = Registration.Course_id inner join major on major.major_id = Course.course_id group by Registration.Course_id,credit_hour,Course.time_of_day,Course.course_name,major.major_name;";
+                Initialize();
+                SqlCommand command = new SqlCommand(query, conn);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Console.WriteLine("lol");
+                    int course_id = reader.GetInt32(0);
+                    int credit_hour = reader.GetInt32(1);
+                    TimeSpan time = reader.GetTimeSpan(2);
+                    String course_name = reader.GetString(3);
+                    String major_name = reader.GetString(4);
+                    int number_of_people = reader.GetInt32(5);
+                    Course course = new Course(course_name, time.Hours, credit_hour, major_name);
+                    course.Courseidprop = course_id;
+                    course.countpeoppro = number_of_people;
+                    result.Add(course_name, course);
+                }
+                reader.Close();
+                conn.Close();
+                Console.WriteLine("size is" + result.Count);
+                return result;
+            }
+        }
+        public static Dictionary<String,Course> getCourses(int id)
+        {
+            Dictionary<String, Course> result = new Dictionary<String, Course>();
+            String query = "Select Registration.course_id,credit_hour,time_of_day,course_name,major_name from Registration inner join Course on Course.course_id = Registration.Course_id inner join Major on major.major_id = Course.course_id where student_id = @studentid";
+            Initialize();
+            SqlCommand command = new SqlCommand(query, conn);
+            command.Parameters.AddWithValue("studentid", id);
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                Console.WriteLine("lol");
+                int course_id = reader.GetInt32(0);
+                int credit_hour = reader.GetInt32(1);
+                TimeSpan time = reader.GetTimeSpan(2);
+                String course_name = reader.GetString(3);
+                String major_name = reader.GetString(4);
+                Course course = new Course(course_name, time.Hours, credit_hour, major_name);
+                course.Courseidprop = course_id;
+                result.Add(course_name, course);
+            }
+            reader.Close();
+            conn.Close();
+            Console.WriteLine("size is" + result.Count);
+            return result;
+        }
         public static bool insertMajor(int id, String Major)
         {
             Initialize();
@@ -100,6 +180,66 @@ namespace DemoRagApp
             }
             
         }
+        public static int RegisterForClass(int userid, int classid)
+        {
+            Initialize();
+            int credithours = getTotalCreditHours(userid);
+            if(credithours == 6)
+            {
+                
+                conn.Close();
+                return 0;
+                //return "you have reached the max credit hours";
+            }
+            else
+            {
+               
+                String query1 = "Select credit_hour from Course where course_id = @class";
+                SqlCommand command = new SqlCommand(query1, conn);
+                command.Parameters.AddWithValue("class", classid);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    String num = reader.GetSqlValue(0).ToString();
+                    int number = int.Parse(num);
+                    if((number + credithours) > 6)
+                    {
+                        return 1;
+                       // return "adding this class would put you over the max credits";
+                    }
+                    else
+                    {
+                        conn.Close();
+                        conn.Open();
+                        String query2 = "Insert into Registration(student_id,Course_id) values (@userID,@Courseid)";
+                        command = new SqlCommand(query2, conn);
+                        command.Parameters.AddWithValue("userID", userid);
+                        command.Parameters.AddWithValue("Courseid", classid);
+                        int i= command.ExecuteNonQuery();
+                        if(i ==1)
+                        {
+                            return 2;
+                         //   return "Success";
+                        }
+                        else
+                        {
+                            return 3;
+                           // return "failure to insert";
+                        }
+
+
+                    }
+                }
+                else
+                {
+                    reader.Close();
+                    conn.Close();
+                    return 4;
+                    //return "you have entered an invalid course number";
+                }
+            }
+
+        }
         public static int getTotalCreditHours(int userid)
         {
             Initialize();
@@ -110,10 +250,12 @@ namespace DemoRagApp
             if (reader.Read())
             {
                 String num = reader.GetSqlValue(0).ToString();
+                reader.Close();
                 return int.Parse(num);
             }
             else
             {
+                reader.Close();
                 return 0;
             }
         }
@@ -121,51 +263,51 @@ namespace DemoRagApp
         {
             Student student;
             Initialize();
-            String query1 = "Select usertype,userid from Users where emailaddress = @username";
+            String query1 = "Select Users.userid from Users  inner join Administrator  on Administrator.userid = Users.userid where emailaddress  = @username";
             SqlCommand command = new SqlCommand(query1, conn);
             command.Parameters.AddWithValue("username", username);
             SqlDataReader reader = command.ExecuteReader();
             if (reader.Read())
             {
-                if (reader.GetSqlValue(0).ToString() == "0")
+                if (1 == 1)
                 {
                     conn.Close();
                     return Administrator.getInstance();
                 }
 
-                else
-                {
+               
+            }
+            else
+            {
 
-                    String query3 = "Select firstname, lastname, passwords,emailaddress,userid from Users where emailaddress = " + "\'" + username + "\'";
+                String query3 = "Select firstname, lastname, passwords,emailaddress,userid from Users where emailaddress = " + "\'" + username + "\'";
+                command = new SqlCommand(query3, conn);
+                //command.Parameters.AddWithValue("username", username);
+                reader.Close();
+                reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    // conn.Close();
+                    student = new Student(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(4));
+                    String query = "Select major from Student where student_id = @studentid";
                     command = new SqlCommand(query3, conn);
-                    //command.Parameters.AddWithValue("username", username);
+                    command.Parameters.AddWithValue("studentid", student.ID);
                     reader.Close();
                     reader = command.ExecuteReader();
                     if (reader.Read())
                     {
-                        // conn.Close();
-                        student = new Student(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(4));
-                        String query = "Select major from Student where student_id = @studentid";
-                        command = new SqlCommand(query3, conn);
-                        command.Parameters.AddWithValue("studentid", student.ID);
-                        reader.Close();
-                        reader = command.ExecuteReader();
-                        if (reader.Read())
+                        if (!reader.GetString(0).ToString().Equals(""))
                         {
-                            if (!reader.GetString(0).ToString().Equals(""))
-                            {
 
-                                student.majorProperty = reader.GetString(0);
-                            }
-
+                            student.majorProperty = reader.GetString(0);
                         }
 
-                        conn.Close();
-                        return student;
                     }
+
+                    conn.Close();
+                    return student;
                 }
             }
-
             conn.Close();
             return null;
             }

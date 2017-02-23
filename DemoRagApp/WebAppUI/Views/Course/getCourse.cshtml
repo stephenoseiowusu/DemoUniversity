@@ -1,0 +1,80 @@
+﻿@using DemoUniversity.course
+@model WebAppUI.Controllers.CourseController
+@{
+    ViewBag.Title = "getCourse";
+}
+@Html.Partial("navagation")
+<h2>Course</h2>
+
+    @if (ViewBag.Signup == 0)
+    {
+        @Html.Raw("<strong><center>you have reached the max credit hours</center></strong>")
+    }
+    else if (ViewBag.Signup == 1)
+    {
+        @Html.Raw("<strong><center>adding this class would put you over the max credits</center></strong>")
+    }
+    else if (ViewBag.Signup == 3)
+    {
+        @Html.Raw("<strong><center>failure to insert</center></strong>")
+    }
+    else if (ViewBag.Signup == 4)
+    {
+        @Html.Raw("<strong><center>you have entered an invalid course number</center></strong>")
+    }
+    else
+    {
+        @Html.Raw("<strong><center>SUCCESS</center></strong>")
+    }
+
+
+    @if (ViewBag.user.listCourse.Count > 0)
+    {
+       @Html.Raw("<table style='width:100%; border: 1px solid black;'> <tr> <th>CourseName</th> <th>Major</th> <th>Credits</th> <th>Course id</th> <th>Time</th></tr>");
+
+            foreach (var animal in ViewBag.user.listCourse)
+            {
+                @Html.Raw("<tr>")
+                @Html.Raw("<td>")
+                @Html.Raw("<font color='red'>")
+                @animal.Value.titles
+                @Html.Raw("</font>")
+                @Html.Raw("</td>")
+                @Html.Raw("<td>")
+                @Html.Raw("<font color='red'>")
+                @animal.Value.majorprop
+                @Html.Raw("</font>")
+                @Html.Raw("</td>")
+                @Html.Raw("<td>")
+                @Html.Raw("<font color='red'>")
+                @animal.Value.creditprop
+                @Html.Raw("</font>")
+                @Html.Raw("</td>")
+                @Html.Raw("<td>")
+                @Html.Raw("<font color='red'>")
+                @animal.Value.Courseidprop
+                @Html.Raw("</font>")
+                @Html.Raw("</td>")
+                @Html.Raw("<td>")
+                @Html.Raw("<font color='red'>")
+                @animal.Value.getDate
+                @Html.Raw("</font>")
+                @Html.Raw("</td>")
+                @Html.Raw("</tr>")
+            }
+        @Html.Raw("</table>")
+    }
+    else
+    {
+            @Html.Raw("<br/><center> No classes Registered</center>")
+    }
+   <br/>
+@using (Html.BeginForm("signUp", "Course",FormMethod.Post))
+{
+    <div class="form-group">
+        <center><label for="email">Course number</label></center>
+        <center> @Html.TextBox("Courseid")</center>
+    </div>  
+        <center><input type="submit" value="Login" /> </center>
+}
+

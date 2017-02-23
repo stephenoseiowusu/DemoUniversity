@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "getAdmin";
+}
+
+<h2>Welecome Admin</h2>
+<br/>
+<br/>
+@if (ViewBag.Courses.Count > 0)
+{
+    @Html.Raw("<table style='width:100%; border: 1px solid black;'> <tr> <th>CourseName</th> <th>Major</th> <th>Credits</th> <th>Course id</th> <th>Time</th> <th>Number of people</th></tr>");
+
+    foreach (var animal in ViewBag.Courses)
+    {
+        @Html.Raw("<tr>")
+        @Html.Raw("<td>")
+        @Html.Raw("<font color='red'>")
+        @animal.Value.titleprop
+        @Html.Raw("</font>")
+        @Html.Raw("</td>")
+        @Html.Raw("<td>")
+        @Html.Raw("<font color='red'>")
+        @animal.Value.majorprop
+        @Html.Raw("</font>")
+        @Html.Raw("</td>")
+        @Html.Raw("<td>")
+        @Html.Raw("<font color='red'>")
+        @animal.Value.creditprop
+        @Html.Raw("</font>")
+        @Html.Raw("</td>")
+        @Html.Raw("<td>")
+        @Html.Raw("<font color='red'>")
+        @animal.Value.Courseidprop
+        @Html.Raw("</font>")
+        @Html.Raw("</td>")
+        @Html.Raw("<td>")
+        @Html.Raw("<font color='red'>")
+        @animal.Value.getDate
+        @Html.Raw("</font>")
+        @Html.Raw("</td>")
+        @Html.Raw("<td>")
+        @Html.Raw("<font color='red'>")
+        @animal.Value.countpeoppro
+        @Html.Raw("</font>")
+        @Html.Raw("</td>")
+        @Html.Raw("</tr>")
+        @Html.ActionLink("","")
+    }
+    @Html.Raw("</table>")
+}
+else
+{
+    @Html.Raw("<br/><center> No classes Registered</center>")
+}

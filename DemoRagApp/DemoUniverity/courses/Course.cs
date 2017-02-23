@@ -11,29 +11,38 @@ using System.Threading;
 namespace DemoUniversity.course
 {
 
-    
+
 
 
     public class Course : iCourse
     {
         private string title;
         private string major;
+        public String majorprop { get { return major; } set { major = value; } }
+        public int creditprop { get { return creditHour; } }
         public Boolean isClosed = false;
-        private DateTime timeOfDay;
+        public int getDate{get{return timeOfDay;} }
+        private int timeOfDay;
         private int creditHour;
+        private int courseid;
+        private int countpeop;
+        public String titleprop { get { return title; } }
+        public int countpeoppro { get { return countpeop; } set { countpeop = value; } }
+        public int Courseidprop { get { return courseid; } set {courseid = value; } }
         private List<Student> studentRoster = new List<Student>();
+        public List<Student> studentRosterprop { get { return studentRoster; }set { studentRoster = value; } }
      //   private DateTime dateTime;
         public delegate bool CloseRegistration(Course thisCoursetoClose);
         public CloseRegistration cr = null;
 
-        public Course(string title, DateTime timeofDay,int creditHour, string major = "DateTime timeofDay" )
+        public Course(string title, int hour,int creditHour, string major = "undecided" )
         {
             this.title = title;
             this.major = major;
-            this.timeOfDay = timeofDay;
+            this.timeOfDay = hour;
             this.creditHour = creditHour;
         }
-        public Course(String title, DateTime timeofDay)
+        public Course(String title, int timeofDay)
         {
             this.title = title;
             this.timeOfDay = timeofDay;
@@ -104,12 +113,12 @@ namespace DemoUniversity.course
         {
             get
             {
-                throw new NotImplementedException();
+                return title;
             }
 
             set
             {
-                throw new NotImplementedException();
+               title = titles;
             }
         }
 

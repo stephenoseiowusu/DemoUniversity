@@ -17,37 +17,10 @@ namespace WebAppUI.Controllers
         }
         public ViewResult UniHome()
         {
+
             return View();
         }
-        [HttpPost]
-        public ActionResult login(String username,String password)
-        {
-            Model mod = Model.getModel();
-            bool did = mod.Login(username, password);
-            if(did == true)
-            {
-                
-                Users which = mod.returnUser();
-                if(which is Student)
-                {
-                    return RedirectToAction("getStudent","Student", new { student = which });
-                }
-                else
-                {
-                    return RedirectToAction("getAdmin","Student",new { admin = which });
-                }
-                
-            }
-            else
-            {
-                   ViewBag.isLogged = false;
-                   RegistrationController co = new RegistrationController();
-                   
-                   return RedirectToAction("RegistrationPage","Registration");
-                //   return null;
-            }
-
-        }
+       
 
     }
 }
