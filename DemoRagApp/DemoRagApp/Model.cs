@@ -24,6 +24,21 @@ namespace DemoRagApp
             }
             return model;
         } 
+        public List<Student> getByCourses(int id)
+        {
+            List<Student> and = null;
+            foreach (var newAnimal in AllCourse)
+            {
+                if(newAnimal.Value.Courseidprop == id)
+                {
+                    // Console.WriteLine(newAnimal.Value);
+                    // Console.WriteLine(newAnimal.ToString());
+                    and = newAnimal.Value.studentRosterprop; 
+                }
+               
+            }
+            return and;
+        }
         public  void  setupAdmin()
         {
             AllCourse = Database.GetListOfCourse();

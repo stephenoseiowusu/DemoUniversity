@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "ClassInfo";
+}
+
+<h2>ClassInfo</h2>
+@if (ViewBag.studentlist.Count > 0)
+{
+    @Html.Raw("<center><table style='width:70%; border: 1px solid black;'> <tr> <th>FullName</th>  </tr>");
+
+    foreach (var animal in ViewBag.studentlist)
+    {
+        @Html.Raw("<tr>")
+        @Html.Raw("<td>")
+        @Html.Raw("<font color='red'>")
+        @animal.Fullname
+        @Html.Raw("</font>")
+        @Html.Raw("</td>")
+        @Html.Raw("<td>")
+        @Html.Raw("<font color='red'>")
+        @animal.Fullname
+        @Html.Raw("</font>")
+        @Html.Raw("</td>")
+        @Html.Raw("</tr>")
+
+    }
+    @Html.Raw("</table></center>")
+}
+else
+{
+    @Html.Raw("<br/><center> No students Registered</center>")
+}
+
+
+
+

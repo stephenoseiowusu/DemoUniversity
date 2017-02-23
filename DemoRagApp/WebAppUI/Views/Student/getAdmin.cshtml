@@ -8,7 +8,7 @@
 <br/>
 @if (ViewBag.Courses.Count > 0)
 {
-    @Html.Raw("<table style='width:100%; border: 1px solid black;'> <tr> <th>CourseName</th> <th>Major</th> <th>Credits</th> <th>Course id</th> <th>Time</th> <th>Number of people</th></tr>");
+    @Html.Raw("<center><table style='width:70%; border: 1px solid black;'> <tr> <th>CourseName</th> <th>Major</th> <th>Credits</th> <th>Course id</th> <th>Time</th> <th>Nop</th><th>More</th></tr>");
 
     foreach (var animal in ViewBag.Courses)
     {
@@ -43,10 +43,14 @@
         @animal.Value.countpeoppro
         @Html.Raw("</font>")
         @Html.Raw("</td>")
+        @Html.Raw("<td><a href='")
+        @Url.Action("ClassInfo","classes", new { classid = @animal.Value.Courseidprop })
+        @Html.Raw("'>")
+        @Html.Raw("More info</a></td>")
         @Html.Raw("</tr>")
-        @Html.ActionLink("","")
+        
     }
-    @Html.Raw("</table>")
+    @Html.Raw("</table></center>")
 }
 else
 {

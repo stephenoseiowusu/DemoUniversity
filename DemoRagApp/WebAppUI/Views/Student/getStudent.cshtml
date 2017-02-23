@@ -3,6 +3,15 @@
     <div id="main">
         <h2>Welcome @ViewBag.username</h2>
         <h2> Your CreditHours are @ViewBag.credithours</h2>
+        <br/>
+        @if(ViewBag.creditHours > 5)
+        {
+            Html.Raw("<h2><center><strong> You are full time </strong></center></h2>");
+        }
+        else
+        {
+            Html.Raw("<h2><center><strong> You are not full time </strong></center></h2>");
+        }
 
     </div>   
 @Html.Partial("navagation")
