@@ -6,7 +6,7 @@
 <h2>ClassInfo</h2>
 @if (ViewBag.studentlist.Count > 0)
 {
-    @Html.Raw("<center><table style='width:70%; border: 1px solid black;bgcolor='#ffffff' '> <tr> <th>FullName</th>  <th>dropstudent<th> </tr>");
+    @Html.Raw("<center><table class = 'table-striped' style='width:70%; border: 15px solid black;bgcolor='#ffffff' '> <tr> <th>FullName</th>  <th>dropstudent<th> </tr>");
 
     foreach (var animal in ViewBag.studentlist)
     {

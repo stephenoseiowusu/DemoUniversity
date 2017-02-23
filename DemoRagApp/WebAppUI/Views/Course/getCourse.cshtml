@@ -30,7 +30,7 @@
 
     @if (ViewBag.user.listCourse.Count > 0)
     {
-       @Html.Raw("<table style='width:100%'; bgcolor='#ffffff'; border: '1px solid black;'> <tr> <th>CourseName</th> <th>Major</th> <th>Credits</th> <th>Course id</th> <th>Time</th></tr>");
+       @Html.Raw("<table class = 'table-striped' style='width:100%'; bgcolor='#ffffff'; border: '1px solid black;'> <tr> <th>CourseName</th> <th>Major</th> <th>Credits</th> <th>Course id</th> <th>Time</th></tr>");
 
             foreach (var animal in ViewBag.user.listCourse)
             {
